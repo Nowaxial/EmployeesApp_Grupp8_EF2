@@ -14,12 +14,12 @@ namespace EmployeesApp.Web.Tests;
 public class EmployeesControllerTests
 {
     [Fact]
-    public void Index_NoParams_ReturnsViewResultWithCorrectViewModel()
+    public async Task Index_NoParams_ReturnsViewResultWithCorrectViewModel()
     {
         //Arrange
         var employeeService = new Mock<IEmployeeService>();
         employeeService.Setup(service => service.GetAll())
-            .Returns([
+            .ReturnsAsync([
                 new Employee{Email = "gmail@gmail.com", Name = "Pär"},
                 new Employee{Email = "email@email.com", Name = "Name"},
                 new Employee{Email = "hotmail@hotmail.com", Name = "Namn"}
@@ -27,7 +27,7 @@ public class EmployeesControllerTests
         var employeeController = new EmployeesController(employeeService.Object);
 
         //Act
-        var result = employeeController.Index();
+        var result = await employeeController.Index();
 
         //Assert
         var viewResult = Assert.IsType<ViewResult>(result);
@@ -98,7 +98,7 @@ public class EmployeesControllerTests
 
         employeeService
             .Setup(service => service.GetById(1))
-            .Returns(employee);
+            .ReturnsAsync(employee);
 
         //Act
         var result = employeeController.Details(1);

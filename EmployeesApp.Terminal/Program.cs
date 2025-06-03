@@ -34,7 +34,7 @@ internal class Program
 
     private static void ListAllEmployees()
     {
-        foreach (var item in employeeService.GetAll())
+        foreach (var item in employeeService.GetAll().Result)
             Console.WriteLine(item.Name);
 
         Console.WriteLine("------------------------------");
@@ -46,11 +46,11 @@ internal class Program
 
         try
         {
-            employee = employeeService.GetById(employeeID);
+            employee = employeeService.GetById(employeeID).Result;
             Console.WriteLine($"{employee?.Name}: {employee?.Email}");
             Console.WriteLine("------------------------------");
         }
-        catch (ArgumentException e)
+        catch (Exception e)
         {
             Console.WriteLine($"EXCEPTION: {e.Message}");
         }
