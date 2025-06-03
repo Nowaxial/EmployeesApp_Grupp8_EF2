@@ -21,6 +21,7 @@ public class EmployeesController(IEmployeeService service) : Controller
                 Id = e.Id,
                 Name = e.Name,
                 ShowAsHighlighted = service.CheckIsVIP(e),
+                Company = e.Company?.Name
             })]
         };
 
